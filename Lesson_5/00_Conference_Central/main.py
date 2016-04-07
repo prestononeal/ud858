@@ -17,11 +17,6 @@ from google.appengine.api import app_identity
 from google.appengine.api import mail
 from conference import ConferenceApi
 
-class SetAnnouncementHandler(webapp2.RequestHandler):
-    def get(self):
-        """Set Announcement in Memcache."""
-        # TODO 1
-
 
 class SendConfirmationEmailHandler(webapp2.RequestHandler):
     def post(self):
@@ -35,6 +30,13 @@ class SendConfirmationEmailHandler(webapp2.RequestHandler):
             'conference:\r\n\r\n%s' % self.request.get(
                 'conferenceInfo')
         )
+
+
+class SetAnnouncementHandler(webapp2.RequestHandler):
+    def get(self):
+        """Set Announcement in Memcache."""
+        # use _cacheAnnouncement() to set announcement in Memcache
+        ConferenceApi._cacheAnnouncement()
 
 
 app = webapp2.WSGIApplication([
